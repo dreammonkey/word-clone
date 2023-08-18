@@ -52,10 +52,21 @@ function Game() {
     // check win
   };
 
+  const resetGame = () => {
+    console.log("jowkes");
+    setAnswer(sample(WORDS));
+    setUserAnswers([]);
+    setGameState("running");
+  };
+
   return (
     <>
-      {gameState === "won" && <WinnerBanner numGuesses={userAnswers.length} />}
-      {gameState === "lost" && <LoserBanner answer={answer} />}
+      {gameState === "won" && (
+        <WinnerBanner numGuesses={userAnswers.length} restart={resetGame} />
+      )}
+      {gameState === "lost" && (
+        <LoserBanner answer={answer} restart={resetGame} />
+      )}
       <GuessResults results={userAnswers} />
       <WordInput enabled={gameState === "running"} onGuess={onGuess} />
     </>
